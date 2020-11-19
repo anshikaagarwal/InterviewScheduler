@@ -46,7 +46,7 @@ class InterviewList extends Component {
           <InterviewCard />
           <InterviewCard />
         </div>
-        <Link to="/anshika/new">
+        <Link to="/interview/anshika/new">
           <div style={{ position: "fixed", bottom: "0px", right: "0px", margin: "2%", backgroundColor: "red", borderRadius: "50%", padding: "10px", display: "flex", justifyContent: "center", alignItems: "center", boxShadow: "0 2px 8px 0 rgba(0,0,0,0.3)" }}>
             <Add style={{ fontSize: '40px', color: "white" }} />
           </div>

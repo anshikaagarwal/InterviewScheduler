@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Route exact path="/" component={InterviewList} />
-        <Route path="/:id" component={InterviewForm} />
+        <Route path="/interview/:id" component={InterviewForm} />
       </BrowserRouter>
     )
   }
