@@ -8,22 +8,16 @@ class InterviewList extends Component {
   constructor() {
     super();
     this.state = {
-
+      interviews: []
     }
   }
   async componentDidMount() {
     console.log("mounted")
-    var url = 'https://cors-anywhere.herokuapp.com/http://localhost:5000/api/interview';
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    }).then(res => res.json())
-      .then(response => console.log('Success:', response))
-      .catch(error => console.error('Error:', error));
+    let res = await axios.get("https://cors-anywhere.herokuapp.com/https://intervu-scheduler.herokuapp.com/api/interview");
+    this.setState({ interviews: res.data.data });
   }
   render() {
+    console.log(this.state.interviews)
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", }}>
 
@@ -38,13 +32,8 @@ class InterviewList extends Component {
           padding: "10px 0px",
           // border: "2px solid black"
         }}>
-          <InterviewCard />
-          <InterviewCard />
-          <InterviewCard />
-          <InterviewCard />
-          <InterviewCard />
-          <InterviewCard />
-          <InterviewCard />
+          {this.state.interviews.map(schedule => <InterviewCard data={schedule} />
+          )}
         </div>
         <Link to="/interview/anshika/new">
           <div style={{ position: "fixed", bottom: "0px", right: "0px", margin: "2%", backgroundColor: "red", borderRadius: "50%", padding: "10px", display: "flex", justifyContent: "center", alignItems: "center", boxShadow: "0 2px 8px 0 rgba(0,0,0,0.3)" }}>

@@ -1,13 +1,24 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { TextField, Select, MenuItem, ListItemText, Input, Checkbox, InputLabel, FormControl, Button } from "@material-ui/core"
 
 class InterviewForm extends Component {
   state = {
-    selected: [],
-    date: ""
+    name: "",
+    date: "",
+    starttime: "",
+    endtime: "",
+    participants: [],
   }
   handleChange = (event) => {
-    this.setState({ selected: event.target.value })
+    this.setState({ participants: event.target.value })
+  }
+  handleSubmit = async () => {
+    let { name, date, starttime, endtime, participants } = this.state
+    const res = await axios.post("https://cors-anywhere.herokuapp.com/https://intervu-scheduler.herokuapp.com/api/new-interview", {
+      name, date, starttime, endtime, participants
+    });
+    console.log(res.data);
   }
   candidtates = [
     { name: "Anshika", email: "anshika@gmail.com" },
@@ -25,12 +36,18 @@ class InterviewForm extends Component {
   }
 
   render() {
-    console.log(this.state.date)
+    console.log(this.state.date, this.state.participants)
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "70vh", }}>
         <div>Create New Interview+</div>
         <div style={{ display: "flex", flexDirection: "column", width: "40%", border: "2px solid grey", padding: "20px", borderRadius: "5px" }}>
-          <TextField style={{ marginTop: "10px" }} id="outlined-basic" label="Interview Name" variant="outlined" />
+          <TextField
+            style={{ marginTop: "10px" }}
+            id="outlined-basic"
+            label="Interview Name"
+            variant="outlined"
+            onChange={(e) => this.setState({ name: e.target.value })}
+          />
           <TextField variant="outlined"
             display='block'
             margin="normal"
@@ -46,8 +63,19 @@ class InterviewForm extends Component {
             onChange={(e) => this.setState({ date: e.target.value })}
           />
           <div style={{ display: "flex" }}>
-            <TextField style={{ marginTop: "10px", flex: 1 }} id="outlined-basic" label="Start Time(HH::MM)" variant="outlined" />
-            <TextField style={{ marginTop: "10px", flex: 1 }} id="outlined-basic" label="End Time(HH::MM)" variant="outlined" />
+            <TextField
+              style={{ marginTop: "10px", flex: 1 }}
+              id="outlined-basic" label="Start Time(HH::MM)"
+              variant="outlined"
+              onChange={(e) => this.setState({ starttime: e.target.value })}
+            />
+            <TextField
+              style={{ marginTop: "10px", flex: 1 }}
+              id="outlined-basic"
+              label="End Time(HH::MM)"
+              variant="outlined"
+              onChange={(e) => this.setState({ endtime: e.target.value })}
+            />
           </div>
           <FormControl style={{ marginTop: "10px" }}>
             <InputLabel id="demo-mutiple-checkbox-label">Select Participants</InputLabel>
@@ -55,7 +83,7 @@ class InterviewForm extends Component {
               labelId="demo-mutiple-checkbox-label"
               id="demo-mutiple-checkbox"
               multiple
-              value={this.state.selected}
+              value={this.state.participants}
               onChange={this.handleChange}
               input={<Input />}
               renderValue={(selected) => selected.join(',')}
@@ -64,13 +92,18 @@ class InterviewForm extends Component {
             >
               {this.candidtates.map(({ name, email }) => (
                 <MenuItem key={email} value={email}>
-                  <Checkbox checked={this.state.selected.includes(email)} />
+                  <Checkbox checked={this.state.participants.includes(email)} />
                   <ListItemText primary={name} secondary={email} />
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-          <Button style={{ marginTop: "10px" }} variant="contained" color="primary">Create</Button>
+          <Button
+            style={{ marginTop: "10px" }}
+            variant="contained"
+            color="primary"
+            onClick={this.handleSubmit}
+          >Create</Button>
         </div>
       </div >
     )

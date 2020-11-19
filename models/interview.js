@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const interview_schema = new Schema({
   name: String,  //name of the interview
   participants: Array, //email ID's of participants
+  date: String,
   starttime: String,
   endtime: String
 })
