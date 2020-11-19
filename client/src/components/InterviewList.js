@@ -20,9 +20,7 @@ class InterviewList extends Component {
     console.log(this.state.interviews)
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", }}>
-
-        <div>Upcoming Interviews</div>
-
+        <div style={{ width: "40%", fontSize: "50px", color: "green", borderBottom: "5px solid green", padding: "10px 0" }}>Upcoming Interviews</div>
         <div style={{
           display: "flex",
           flexDirection: "column",

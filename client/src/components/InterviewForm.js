@@ -39,8 +39,8 @@ class InterviewForm extends Component {
     console.log(this.state.date, this.state.participants)
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "70vh", }}>
-        <div>Create New Interview+</div>
-        <div style={{ display: "flex", flexDirection: "column", width: "40%", border: "2px solid grey", padding: "20px", borderRadius: "5px" }}>
+        <div style={{ color: "grey", width: "40%", fontSize: "30px", margin: "10px 0" }}>Create New Interview+</div>
+        <div style={{ display: "flex", flexDirection: "column", width: "40%", border: "2px solid #D5D8DC", padding: "20px", borderRadius: "5px" }}>
           <TextField
             style={{ marginTop: "10px" }}
             id="outlined-basic"
